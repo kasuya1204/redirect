@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    async function main() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id") || "";
+
+      if (!id) {
+        document.body.innerHTML = "<h2>QRコードにIDが含まれていません。</h2>";
+        return;
+      }
+
+      // Google Apps ScriptのURL（取得したURLに変更）
+      const scriptUrl = "https://script.google.com/macros/s/AKfycbwHTZSit-IGuHrBEQEfJXgjXOwI_PGbzkH7jfKE7TSg643-sBhniQNl92cKgUN_dxB3/exec";
+
+      try {
+        // GASへアクセス記録を送信
+        await fetch(`${scriptUrl}?id=${encodeURIComponent(id)}`, { mode: "no-cors" });
+      } catch (err) {
+        console.error("記録送信エラー:", err);
+      }
+
+      // 指定のページへリダイレクト（例：GitHub Pagesのcatページ）
+      window.location.href = "https://kasuya1204.github.io/cat/";
+    }
+
+    main();
+  </script>
+</head>
+<body>
+  <p>アクセスを記録中です。しばらくお待ちください…</p>
+</body>
+</html>
